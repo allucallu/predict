@@ -38,85 +38,216 @@
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-primary-100 selection:text-primary-900">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 transition-all duration-300 glass-card border-b border-slate-200/50">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-2">
-                    <div
-                        class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-primary-500/30">
-                        P</div>
-                    <span
-                        class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">Predict.</span>
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-white">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Pre<span
+                            class="text-primary-600">dict</span></span>
+                </div>
+
+                <!-- Nav Links -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-slate-500 hover:text-primary-600 font-medium transition">Fitur</a>
+                    <a href="#how-it-works" class="text-slate-500 hover:text-primary-600 font-medium transition">Cara
+                        Kerja</a>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
+        <!-- Background Decor -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
             <div
-                class="absolute top-20 left-10 w-72 h-72 bg-primary-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob">
+                class="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
             </div>
-            <div class="absolute top-20 right-10 w-72 h-72 bg-purple-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"
-                style="animation-delay: 2s"></div>
-            <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"
-                style="animation-delay: 4s"></div>
+            <div
+                class="absolute top-20 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
+            </div>
+            <div
+                class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000">
+            </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
-                Prediksi Harga Saham <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-indigo-600">Lebih
-                    Akurat</span> dengan AI
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+            <h1
+                class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight max-w-4xl mx-auto">
+                Prediksi Pasar Saham dengan <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-indigo-600">Regresi
+                    Linear</span>
             </h1>
-            <p class="text-lg text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Upload data historis Anda, dan biarkan algoritma Regresi Linear Berganda kami menganalisis tren masa
-                depan dalam hitungan detik.
+
+            <p class="mt-4 text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+                Analisis data historis instan dan dapatkan prediksi harga penutupan yang akurat. Keputusan investasi
+                lebih cerdas dengan bantuan teknologi Machine Learning.
             </p>
 
-            <div class="max-w-xl mx-auto">
-                <div
-                    class="glass-card rounded-2xl p-8 shadow-xl shadow-slate-200/50 transform transition hover:scale-[1.01] duration-300">
-                    
-                    <form id="uploadForm" class="space-y-6">
-                        <div class="space-y-2 text-left">
-                            <label for="file" class="block text-sm font-medium text-slate-700">Upload CSV File</label>
-                            <div class="relative group">
-                                <input type="file" name="file" id="fileInput" accept=".csv" required class="block w-full text-sm text-slate-500
-                                    file:mr-4 file:py-3 file:px-6
-                                    file:rounded-xl file:border-0
-                                    file:text-sm file:font-semibold
-                                    file:bg-primary-50 file:text-primary-700
-                                    hover:file:bg-primary-100
-                                    border border-slate-200 rounded-xl cursor-pointer bg-white/50
-                                    focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
-                                    transition-all duration-300">
+            <!-- Upload Card -->
+            <div class="max-w-xl mx-auto transform transition-all hover:scale-[1.01] duration-300">
+                <div class="glass-card rounded-2xl p-2 shadow-2xl shadow-blue-900/10">
+                    <div class="bg-white rounded-xl p-6 sm:p-8 border border-slate-100">
+
+                        <form id="uploadForm" class="space-y-6">
+                            <div class="group relative">
+                                <label
+                                    class="flex flex-col items-center justify-center w-full h-40 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-blue-50 hover:border-blue-400 transition-all duration-300">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <div
+                                            class="w-12 h-12 mb-3 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                            </svg>
+                                        </div>
+                                        <p class="mb-1 text-sm font-medium text-slate-700">Klik untuk upload CSV</p>
+                                        <p class="text-xs text-slate-400">Format: Investing.com Export</p>
+                                    </div>
+                                    <input type="file" name="file" id="fileInput" accept=".csv" required class="hidden"
+                                        onchange="document.getElementById('file-name').innerText = this.files[0].name; document.getElementById('file-wrapper').classList.add('border-blue-500', 'bg-blue-50');">
+                                </label>
                             </div>
-                            <p class="text-xs text-slate-400 pl-1">Format: Investing.com Export (Date, Price, Open,
-                                High, Low, Vol)</p>
-                        </div>
 
-                        <button type="submit" id="submitBtn"
-                            class="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-primary-500/30 transition-all duration-300 flex items-center justify-center gap-2 group">
-                            <span>Mulai Analisis</span>
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </button>
-                    </form>
-                    
-                    <p id="loadingText" class="hidden mt-4 text-sm text-primary-600 font-medium animate-pulse">Sedang memproses data...</p>
+                            <p id="file-name" class="text-sm text-center text-blue-600 font-medium h-5"></p>
 
+                            <button type="submit" id="submitBtn"
+                                class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-700 hover:to-indigo-700 text-white font-bold text-lg shadow-lg shadow-blue-500/30 focus:ring-4 focus:ring-blue-200 transition-all transform active:scale-95">
+                                Mulai Analisis Sekarang
+                            </button>
+                        </form>
+
+                        <p id="loadingText"
+                            class="hidden mt-4 text-sm text-primary-600 font-medium animate-pulse text-center">Sedang
+                            memproses data...</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-6 text-sm text-slate-400">
+                Data Anda aman dan diproses secara lokal di server.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900">Mengapa Memilih Predict?</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Teknologi canggih yang disederhanakan untuk membantu
+                    Anda melihat peluang pasar.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Analisis Cepat</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Proses data ribuan baris dalam hitungan milidetik. Tidak perlu menunggu lama untuk mendapatkan
+                        insight.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Machine Learning</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Menggunakan algoritma Regresi Linear yang teruji untuk memproyeksikan tren harga berdasarkan
+                        pola historis.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center text-teal-600 mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Visualisasi Data</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Grafik interaktif yang mudah dipahami, membandingkan harga aktual dengan prediksi secara
+                        visual.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- How it works -->
+    <section id="how-it-works" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-primary-600 font-semibold tracking-wider uppercase text-sm">Langkah Mudah</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Cara Menggunakan</h2>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center max-w-xs">
+                    <div
+                        class="w-16 h-16 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center text-xl font-bold text-slate-800 mb-4">
+                        1</div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Export Data</h4>
+                    <p class="text-sm text-slate-500">Unduh data historis saham dari Investing.com dalam format CSV.</p>
+                </div>
+
+                <div class="hidden md:block w-16 h-1 bg-slate-200 rounded"></div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center max-w-xs">
+                    <div
+                        class="w-16 h-16 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center text-xl font-bold text-slate-800 mb-4">
+                        2</div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Upload CSV</h4>
+                    <p class="text-sm text-slate-500">Unggah file ke aplikasi Predict Analyst melalui form di atas.</p>
+                </div>
+
+                <div class="hidden md:block w-16 h-1 bg-slate-200 rounded"></div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center max-w-xs">
+                    <div
+                        class="w-16 h-16 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center text-xl font-bold text-slate-800 mb-4">
+                        3</div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Lihat Hasil</h4>
+                    <p class="text-sm text-slate-500">Dapatkan prediksi harga penutupan dan analisis tren secara instan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="text-slate-400 text-sm">
@@ -125,26 +256,47 @@
         </div>
     </footer>
 
+    <!-- CSS Animation for Blob -->
     <style>
         @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
         }
+
         .animate-blob {
             animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
         }
     </style>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
-            e.preventDefault(); // Mencegah reload halaman biasa
+        document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
             // --- PENTING: GANTI URL DI BAWAH INI ---
             // Masukkan link Direct URL dari Hugging Face Anda, tambah /predict di belakangnya
-            const API_URL = "https://calluu-predict2.hf.space/predict"; 
-            
+            const API_URL = "https://calluu-predict2.hf.space/predict";
+
             const fileInput = document.getElementById('fileInput');
             const submitBtn = document.getElementById('submitBtn');
             const loadingText = document.getElementById('loadingText');
@@ -153,7 +305,7 @@
                 alert("Silakan pilih file CSV terlebih dahulu.");
                 return;
             }
-            
+
             // Ubah tampilan tombol saat loading
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Mohon Tunggu...';
@@ -177,21 +329,22 @@
 
                 // SIMPAN DATA KE BROWSER SEMENTARA
                 localStorage.setItem('predictData', JSON.stringify(data));
-                
+
                 // PINDAH KE HALAMAN HASIL
-                window.location.href = 'result.html';
+                window.location.href = 'result2.html';
 
             } catch (error) {
                 alert("Gagal: " + error.message);
                 console.error(error);
-                
+
                 // Reset tombol jika gagal
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Mulai Analisis';
+                submitBtn.innerHTML = 'Mulai Analisis Sekarang';
                 submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
                 loadingText.classList.add('hidden');
             }
         });
     </script>
 </body>
+
 </html>
