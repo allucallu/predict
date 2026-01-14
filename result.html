@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Analisis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
+
+    <nav class="w-full bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+                    <div class="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-lg">
+                        P
+                    </div>
+                    <span class="text-xl font-bold text-slate-900">Predict.</span>
+                </a>
+                <a href="index.html" class="text-sm font-medium text-slate-500 hover:text-primary-600 transition">
+                    &larr; Upload File Lain
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow py-12 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto space-y-8">
+            
+            <div class="text-center space-y-2">
+                <span id="status_badge" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    Memuat Data...
+                </span>
+                <h1 class="text-3xl font-bold text-slate-900">Hasil Prediksi Pasar</h1>
+                <p class="text-slate-500">Target Tanggal: <span id="tanggal" class="font-semibold text-slate-800">...</span></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 mb-1">Harga Terakhir</p>
+                    <p class="text-2xl font-bold text-slate-900" id="harga_running">...</p>
+                    <p class="text-xs text-slate-400 mt-2">Data penutupan sebelumnya</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-primary-600 to-primary-700 p-6 rounded-2xl shadow-lg shadow-primary-500/20 text-white relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition duration-500"></div>
+                    <p class="text-sm font-medium text-primary-100 mb-1 relative z-10">Prediksi Close Besok</p>
+                    <p class="text-3xl font-extrabold relative z-10" id="prediksi">...</p>
+                    <div class="mt-3 flex items-center gap-2 relative z-10">
+                        <span id="arrow_icon" class="bg-white/20 p-1 rounded-lg backdrop-blur-sm">
+                           -
+                        </span>
+                        <span class="text-sm font-medium" id="selisih_text">...</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                    <p class="text-sm font-medium text-slate-500 mb-1">Rekomendasi / Tips</p>
+                    <p class="text-sm text-slate-700 leading-relaxed font-medium" id="tips">
+                       Sedang menganalisis...
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                    <h3 class="font-semibold text-slate-800">Visualisasi Tren & Forecast</h3>
+                </div>
+                <div class="p-6 bg-white flex justify-center min-h-[300px] items-center">
+                    <img id="plot_image" src="" alt="Grafik Saham" class="max-w-full h-auto rounded-lg shadow-sm border border-slate-100 hidden">
+                    <div id="loading_chart" class="text-slate-400 animate-pulse">Menyiapkan Grafik...</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">
+                &copy; 2026 Predict. Generated by Python Scikit-Learn.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil data yang disimpan oleh index.html
+            const storedData = localStorage.getItem('predictData');
+
+            if (!storedData) {
+                // Jika tidak ada data, kembalikan ke home
+                alert("Belum ada data analisis. Silakan upload file dulu.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const data = JSON.parse(storedData);
+
+            // Masukkan data ke HTML (DOM Manipulation)
+            document.getElementById('tanggal').textContent = data.tanggal;
+            document.getElementById('harga_running').textContent = "Rp " + data.harga_running;
+            document.getElementById('prediksi').textContent = "Rp " + data.prediksi;
+            document.getElementById('tips').textContent = data.tips;
+            document.getElementById('status_badge').textContent = data.status_teks;
+            
+            // Atur warna badge status
+            const badge = document.getElementById('status_badge');
+            badge.className = `inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${data.status_badge}`;
+
+            // Hitung Selisih untuk Tampilan
+            const selisih = parseFloat(data.selisih);
+            const selisihText = document.getElementById('selisih_text');
+            const arrowIcon = document.getElementById('arrow_icon');
+
+            if (selisih > 0) {
+                selisihText.textContent = `+Rp ${Math.abs(selisih).toLocaleString('id-ID')} (Naik)`;
+                arrowIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>`;
+            } else {
+                selisihText.textContent = `-Rp ${Math.abs(selisih).toLocaleString('id-ID')} (Turun)`;
+                arrowIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" /></svg>`;
+            }
+
+            // Tampilkan Gambar
+            const img = document.getElementById('plot_image');
+            img.src = "data:image/png;base64," + data.plot_url;
+            img.onload = function() {
+                img.classList.remove('hidden');
+                document.getElementById('loading_chart').classList.add('hidden');
+            };
+        });
+    </script>
+</body>
+</html>
